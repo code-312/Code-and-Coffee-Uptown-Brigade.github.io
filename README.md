@@ -1,2 +1,2 @@
-# novacodecoffee.github.io
-The Official Nova Code &amp; Coffee Website.
+# uptown.codes
+The Official Website for Code &amp; Coffee: Uptown Brigade.
