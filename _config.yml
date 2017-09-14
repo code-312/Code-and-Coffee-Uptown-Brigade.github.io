@@ -1,12 +1,11 @@
 # Site settings
-title: Code & Coffee: Uptown Brigade
+title: Code and Coffee Uptown Brigade
 email: cac@uptown.codes
-description: > # this means to ignore newlines until "baseurl:"
-  Nova Code and Coffee
+description: ""
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://uptown.codes" # the base hostname & protocol for your site
 twitter_username: uptowncodes
 github_username:  Code-and-Coffee-Uptown-Brigade
 
 # Build settings
-markdown: kramdown
+# markdown: kramdown

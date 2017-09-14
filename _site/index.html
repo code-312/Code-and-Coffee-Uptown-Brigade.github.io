@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Code and Coffee Uptown Brigade</title>
+  <meta name="description" content="">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.2/mustache.js"></script>
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://uptown.codes/">
+  <link rel="alternate" type="application/rss+xml" title="Code and Coffee Uptown Brigade" href="http://uptown.codes/feed.xml" />
+</head>
+
+
+  <body>
+
+    <nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <div class="titleUpper">Code &amp; Coffee</div>
+        <div class="titleLower">NoVa</div>
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav pull-right">
+        <li><a class="" href="https://github.com/NoVACodeCoffee" role="button"><i class="fa fa-github-alt"></i></a></li>
+        <li><a class="" href="http://www.meetup.com/NoVA-Code-Coffee" role="button"><i class="fa fa-calendar"></i></a></li>
+        <li><a class="" href="http://www.twitter.com/novacodecoffee" role="button"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="" href="https://dctech.slack.com/messages/nova-code-coffee/" role="button"><i class="fa fa-slack"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+      <div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>NoVa Code &amp; Coffee</h2>
+        <p>This group meets twice a month on Thursdays at <a href="https://www.google.com/maps/place/Emerald+City+Uptown/@41.9652969,-87.6610805,18.45z/data=!4m5!3m4!1s0x0:0x16040100d64bf987!8m2!3d41.9655063!4d-87.6605659">Emerald City Uptown</a> in Chicago, Illinois. Developers of all skill levels come together to work on and discuss projects with each other.</p>
+      </div>
+      <div class="col-md-3">
+        <h2>Chat</h2>
+        <p><a class="btn btn-teal" href="http://dctechslack.herokuapp.com" role="button"><i class="fa fa-slack"></i>
+            Slack Signup</a></p>
+        <p><a class="btn btn-teal" href="https://dctech.slack.com/messages/nova-code-coffee/" role="button"><i class="fa fa-slack"></i> Slack Channel</a></p>
+      </div>
+      <div class="col-md-3">
+        <h2>Links</h2>
+        <p><a class="btn btn-teal" href="https://www.meetup.com/Code-and-Coffee-Uptown-Brigade/" role="button"><i class="fa fa-calendar"></i> Meetup</a></p>
+        <p><a class="btn btn-teal" href="https://github.com/Code-and-Coffee-Uptown-Brigade/" role="button"><i class="fa fa-github-alt"></i> GitHub</a></p>
+        <p><a class="btn btn-teal" href="https://twitter.com/codeuptown" role="button"><i class="fa fa-twitter"></i> Twitter</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+      
+<script id="meetup-card" type="x-tmpl-mustache">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="{{event.event_url}}" target="_blank">{{event.name}}</a>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-8">
+                <p>{{{event.description}}}</p>
+            </div>
+            <div class="col-sm-4">
+                <b>WHEN:</b> {{event.formattedDate}}
+                <br><b>WHERE:</b> <a href="{{event.venueLink}}" target="_blank">{{event.venue.name}}</a>
+                <br><b>WHO:</b> {{event.yes_rsvp_count}} already going
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/javascript">
+  //assume Mustache is loaded
+  //assume Meetup is loaded
+
+var Meetup = function(meetupURL) {
+  this.meetupURL = (typeof meetupURL!=='undefined') ? meetupURL :
+  "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=techcorridorio&page=200&fields=&order=time&desc=false&status=upcoming&sig_id=168857872&sig=e659cc6038d27adf6eae600a44905c69196c77df";
+
+  this.getEvents = function(callback) {
+    $.ajax({
+      url: this.meetupURL,
+      dataType: 'jsonp'
+    })
+    .done(function(data) {
+            callback(data);
+    })
+    .fail(function(error) {
+      console.log("Meetup API Request Failed");
+    });
+  }
+};
+
+
+window.onload = function(){
+  $('*[data-component="meetup-card-collection"]').each(function(){
+    var componentConfiguration = {
+      "maxEvents": $(this).data("meetup-card-max-return"),
+      "id": this.id,
+      "url": $(this).data("meetup-card-url")
+    };
+
+    var meetup = new Meetup(componentConfiguration.url).getEvents(function(data) {
+      $.each(data.results, function(i, event) {
+        if (i < componentConfiguration.maxEvents) {
+          eventPresenter = EventPresenter(event);
+          createEventCard(eventPresenter);
+        }
+      })
+    });
+
+    var createEventCard = function (event) {
+      var template = $('#meetup-card').html();
+      Mustache.parse(template);   // optional, speeds up future uses
+      var rendered = Mustache.render(template, {"event": event});
+      $('#'+componentConfiguration.id).append(rendered);
+    };
+
+    var EventPresenter = function(event) {
+      var formatVenueLink = function(venue) {
+        var formattedVenue = "http://maps.google.com/?q=" + encodeURI(venue.address_1) + '+' + encodeURI(venue.city);
+        return formattedVenue
+      };
+      var formatDate = function(date) {
+        // Pretty print the event date
+        var day = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var months = [
+          "January", "February", "March", "April",
+          "May", "June", "July", "August",
+          "September", "October", "November", "December"
+        ];
+
+        return day[date.getDay()]  + ', '
+        + months[date.getMonth()] + ' '
+        + date.getDate() + ', '
+        + date.getFullYear()
+        + ' at '
+        + (date.getHours() % 12) + ':'
+        + (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes())
+        + ' '
+        + (date.getHours() < 12 ? 'AM' : 'PM');
+      };
+
+      event.venueLink = formatVenueLink(event.venue);
+      event.formattedDate = formatDate(new Date(event.time));
+      return event;
+    }
+  })
+};
+</script>
+
+<h2 class="teal">Upcoming Events</h2>
+<div id="meetup-card-collection"
+  data-component="meetup-card-collection"
+  data-meetup-card-max-return="3"
+  data-meetup-card-url="https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=Code-and-Coffee-Uptown-Brigade/">"
+</div>
+
+    </div>
+
+    <div class="col-md-5">
+      <h2 class="teal">Tweets</h2>
+<a class="twitter-timeline" href="https://twitter.com/NoVACodeCoffee" data-widget-id="639168269925097472">Tweets by @NoVACodeCoffee</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+  <hr>
+  <footer>
+    <p>NoVa Code &amp; Coffee</p>
+    <p>&copy; 2017 contributors</p>
+  </footer>
+</div>
+
+
+  </body>
+
+</html>
