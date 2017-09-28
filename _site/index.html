@@ -82,7 +82,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-7">
-      
+
 <script id="meetup-card" type="x-tmpl-mustache">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -134,7 +134,7 @@ window.onload = function(){
     };
 
     var meetup = new Meetup(componentConfiguration.url).getEvents(function(data) {
-      $.each(data.results, function(i, event) {
+      $.each(data.data, function(i, event) {
         if (i < componentConfiguration.maxEvents) {
           eventPresenter = EventPresenter(event);
           createEventCard(eventPresenter);
