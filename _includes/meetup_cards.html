@@ -50,7 +50,7 @@ window.onload = function(){
     };
 
     var meetup = new Meetup(componentConfiguration.url).getEvents(function(data) {
-      $.each(data.results, function(i, event) {
+      $.each(data.data, function(i, event) {
         if (i < componentConfiguration.maxEvents) {
           eventPresenter = EventPresenter(event);
           createEventCard(eventPresenter);
