@@ -24,7 +24,7 @@
 
 var Meetup = function(meetupURL) {
   this.meetupURL = (typeof meetupURL!=='undefined') ? meetupURL :
-  "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=Code-and-Coffee-Uptown-Brigade";
+  "https://api.meetup.com/Code-and-Coffee-Uptown-Brigade/events?&sign=true&photo-host=public&page=20";
 
   this.getEvents = function(callback) {
     $.ajax({
