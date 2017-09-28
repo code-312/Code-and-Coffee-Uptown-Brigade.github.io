@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Code and Coffee Uptown Brigade</title>
+  <title>Code, Coffee, Uptown</title>
   <meta name="description" content="">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -21,9 +21,12 @@
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
   <link rel="stylesheet" href="/css/main.css">
   <link rel="canonical" href="http://uptown.codes/">
-  <link rel="alternate" type="application/rss+xml" title="Code and Coffee Uptown Brigade" href="http://uptown.codes/feed.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Code, Coffee, Uptown" href="http://uptown.codes/feed.xml" />
 </head>
 
 
@@ -40,15 +43,15 @@
       </button>
       <a class="navbar-brand" href="/">
         <div class="titleUpper">Code &amp; Coffee</div>
-        <div class="titleLower">NoVa</div>
+        <div class="titleLower">Uptown Brigade</div>
       </a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav pull-right">
-        <li><a class="" href="https://github.com/NoVACodeCoffee" role="button"><i class="fa fa-github-alt"></i></a></li>
-        <li><a class="" href="http://www.meetup.com/NoVA-Code-Coffee" role="button"><i class="fa fa-calendar"></i></a></li>
-        <li><a class="" href="http://www.twitter.com/novacodecoffee" role="button"><i class="fa fa-twitter"></i></a></li>
-        <li><a class="" href="https://dctech.slack.com/messages/nova-code-coffee/" role="button"><i class="fa fa-slack"></i></a></li>
+        <li><a class="" href="https://github.com/Code-and-Coffee-Uptown-Brigade" role="button"><i class="fa fa-github-alt"></i></a></li>
+        <li><a class="" href="https://www.meetup.com/Code-and-Coffee-Uptown-Brigade/" role="button"><i class="fa fa-calendar"></i></a></li>
+        <li><a class="" href="http://www.twitter.com/codeuptown" role="button"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="" href="https://cacuptown.slack.com/" role="button"><i class="fa fa-slack"></i></a></li>
       </ul>
     </div>
   </div>
@@ -59,17 +62,13 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h2>NoVa Code &amp; Coffee</h2>
+        <h2>Code &amp; Coffee: Uptown Brigade</h2>
         <p>This group meets twice a month on Thursdays at <a href="https://www.google.com/maps/place/Emerald+City+Uptown/@41.9652969,-87.6610805,18.45z/data=!4m5!3m4!1s0x0:0x16040100d64bf987!8m2!3d41.9655063!4d-87.6605659">Emerald City Uptown</a> in Chicago, Illinois. Developers of all skill levels come together to work on and discuss projects with each other.</p>
       </div>
       <div class="col-md-3">
-        <h2>Chat</h2>
-        <p><a class="btn btn-teal" href="http://dctechslack.herokuapp.com" role="button"><i class="fa fa-slack"></i>
-            Slack Signup</a></p>
-        <p><a class="btn btn-teal" href="https://dctech.slack.com/messages/nova-code-coffee/" role="button"><i class="fa fa-slack"></i> Slack Channel</a></p>
-      </div>
-      <div class="col-md-3">
         <h2>Links</h2>
+        <p><a class="btn btn-teal" href="https://uptown-codes.herokuapp.com/" role="button"><i class="fa fa-slack"></i>
+            Slack Signup</a></p>
         <p><a class="btn btn-teal" href="https://www.meetup.com/Code-and-Coffee-Uptown-Brigade/" role="button"><i class="fa fa-calendar"></i> Meetup</a></p>
         <p><a class="btn btn-teal" href="https://github.com/Code-and-Coffee-Uptown-Brigade/" role="button"><i class="fa fa-github-alt"></i> GitHub</a></p>
         <p><a class="btn btn-teal" href="https://twitter.com/codeuptown" role="button"><i class="fa fa-twitter"></i> Twitter</a></p>
@@ -108,7 +107,7 @@
 
 var Meetup = function(meetupURL) {
   this.meetupURL = (typeof meetupURL!=='undefined') ? meetupURL :
-  "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=techcorridorio&page=200&fields=&order=time&desc=false&status=upcoming&sig_id=168857872&sig=e659cc6038d27adf6eae600a44905c69196c77df";
+  "https://api.meetup.com/Code-and-Coffee-Uptown-Brigade/events?photo-host=public&page=20&sig_id=192364358&sig=9902a8a46a1a468003537d96d02a15e4a0451c63";
 
   this.getEvents = function(callback) {
     $.ajax({
@@ -134,7 +133,7 @@ window.onload = function(){
     };
 
     var meetup = new Meetup(componentConfiguration.url).getEvents(function(data) {
-      $.each(data.data, function(i, event) {
+      $.each(data.results, function(i, event) {
         if (i < componentConfiguration.maxEvents) {
           eventPresenter = EventPresenter(event);
           createEventCard(eventPresenter);
@@ -186,14 +185,14 @@ window.onload = function(){
 <div id="meetup-card-collection"
   data-component="meetup-card-collection"
   data-meetup-card-max-return="3"
-  data-meetup-card-url="https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=Code-and-Coffee-Uptown-Brigade/">"
+  data-meetup-card-url="https://api.meetup.com/Code-and-Coffee-Uptown-Brigade/events?photo-host=public&page=20&sig_id=192364358&sig=9902a8a46a1a468003537d96d02a15e4a0451c63">
 </div>
 
     </div>
 
     <div class="col-md-5">
       <h2 class="teal">Tweets</h2>
-<a class="twitter-timeline" href="https://twitter.com/NoVACodeCoffee" data-widget-id="639168269925097472">Tweets by @NoVACodeCoffee</a>
+<a class="twitter-timeline" href="https://twitter.com/codeuptown">Tweets by @CodeUptown</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
     </div>
@@ -204,7 +203,7 @@ window.onload = function(){
     <div class="container">
   <hr>
   <footer>
-    <p>NoVa Code &amp; Coffee</p>
+    <p>Code &amp; Coffee: Uptown Brigade</p>
     <p>&copy; 2017 contributors</p>
   </footer>
 </div>
