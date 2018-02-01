@@ -510,7 +510,7 @@ a {
 
 .jumbotron {
   background-color: #5EA9EF;
-  border-bottom: 1px solid #5EA9EF;
+  border-top: 3px solid #BD3245;
   color: white; }
   .jumbotron h2 {
     display: inline-block;
