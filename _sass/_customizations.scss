@@ -31,7 +31,7 @@ a {
 
 .jumbotron {
   background-color: $brand-teal;
-  border-top: 3px solid $brand-red;
+  border-bottom: 3px solid $brand-red;
   h2 {
     display: inline-block;
     border-bottom: 1px solid white;
@@ -67,7 +67,7 @@ a {
 
 .navbar {
   margin-bottom: 0px;
-  border-bottom: 3px solid $brand-red;
+  // border-bottom: 3px solid $brand-red;
   height: 70px;
   a {
     font-size: 1.3em;
