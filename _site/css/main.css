@@ -537,6 +537,7 @@ a {
 
 .navbar {
   margin-bottom: 0px;
+  border-bottom: 3px solid #BD3245;
   height: 70px; }
   .navbar a {
     font-size: 1.3em;
