@@ -1,23 +1,23 @@
-$brand-teal: #13c0d7;
-$brand-teal-dark: #0299AE;
-$brand-brown: #433A33;
-$brand-brown-light: #E7DCD3;
+$brand-red: #BD3245;
+$brand-red-dark: #0299AE;
+$brand-teal: #5EA9EF;
+$brand-teal-light: #E7DCD3;
 $slightly-bold: 500;
 
 a {
   text-decoration: none;
-  color: $brand-teal;
+  color: $brand-red;
   &:visited {
-    color: $brand-teal;
+    color: $brand-red;
   }
   &:hover {
-    color: $brand-teal-dark;
+    color: $brand-red-dark;
     text-decoration: none;
   }
 }
 
 .teal {
-  color: $brand-teal;
+  color: $brand-red;
 }
 
 .btn-teal {
@@ -30,15 +30,23 @@ a {
 }
 
 .jumbotron {
-  background-color: $brand-brown-light;
+  background-color: $brand-teal;
   border-bottom: 1px solid $brand-teal;
   h2 {
     display: inline-block;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
   }
-  color: $brand-brown;
+  color: white;
   p {
     font-size: 20px;
+  }
+  a {
+    text-decoration: none;
+    color: $brand-teal;
+    &:hover {
+      color: $brand-red;
+      text-decoration: none;
+    }
   }
 }
 
@@ -46,14 +54,20 @@ a {
   border: 1px solid $brand-teal;
   &>.panel-heading {
     font-weight: $slightly-bold;
-    background-color: $brand-brown-light;
-    border-bottom: 1px solid $brand-teal;
+    background-color: $brand-teal;
+    border-bottom: 3px solid $brand-red;
+    a{
+      color: white;
+    }
+  }
+  a {
+    color: $brand-red;
   }
 }
 
 .navbar {
   margin-bottom: 0px;
-  border-bottom: 3px solid $brand-teal;
+  // border-bottom: 3px solid $brand-teal;
   height: 70px;
   a {
     font-size: 1.3em;
@@ -91,4 +105,10 @@ a {
 
 .instagram-image {
   height: 150px;
+}
+
+.twitter-timeline {
+  a{
+    color: $brand-red !important;
+  }
 }
