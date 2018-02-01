@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Code, Coffee, Uptown</title>
+  <meta name="description" content="">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.2/mustache.js"></script>
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://uptown.codes/">
+  <link rel="alternate" type="application/rss+xml" title="Code, Coffee, Uptown" href="http://uptown.codes/feed.xml" />
+</head>
+
+
+  <body>
+
+    <nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <div class="titleUpper">Open Uptown</div>
+        <div class="titleLower">Chicago</div>
+      </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav pull-right">
+        <li><a class="" href="https://github.com/Code-and-Coffee-Uptown-Brigade" role="button"><i class="fa fa-github-alt"></i></a></li>
+        <li><a class="" href="https://www.meetup.com/Code-and-Coffee-Uptown-Brigade/" role="button"><i class="fa fa-calendar"></i></a></li>
+        <li><a class="" href="http://www.twitter.com/codeuptown" role="button"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="" href="https://cacuptown.slack.com/" role="button"><i class="fa fa-slack"></i></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+      <div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Open Uptown</h2>
+        <p>Chicago's Code for America Brigade! We forge partnerships between neighbors who use technology to improve interactions with, and access to, public services.
+          Whether you're a technologist, designer, journalist, public servant, or curious community member- there is a place for you here!
+          Join us for our co-working, project, service, and social events!
+        </p>
+      </div>
+      <div class="col-md-3">
+        <h2>Links</h2>
+        <p><a class="btn btn-teal" href="https://uptown-codes.herokuapp.com/" role="button"><i class="fa fa-slack"></i>
+            Slack Signup</a></p>
+        <p><a class="btn btn-teal" href="https://www.meetup.com/Code-and-Coffee-Uptown-Brigade/" role="button"><i class="fa fa-calendar"></i> Meetup</a></p>
+        <p><a class="btn btn-teal" href="https://github.com/Code-and-Coffee-Uptown-Brigade/" role="button"><i class="fa fa-github-alt"></i> GitHub</a></p>
+        <p><a class="btn btn-teal" href="https://twitter.com/codeuptown" role="button"><i class="fa fa-twitter"></i> Twitter</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-7">
+      
+<script id="meetup-card" type="x-tmpl-mustache">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="{{event.event_url}}" target="_blank">{{event.name}}</a>
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-8">
+                <p>{{{event.description}}}</p>
+            </div>
+            <div class="col-sm-4">
+                <b>WHEN:</b> {{event.formattedDate}}
+                <br><b>WHERE:</b> <a href="{{event.venueLink}}" target="_blank">{{event.venue.name}}</a>
+                <br><b>WHO:</b> {{event.yes_rsvp_count}} already going
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/javascript">
+  //assume Mustache is loaded
+  //assume Meetup is loaded
+
+var Meetup = function(meetupURL) {
+  this.meetupURL = (typeof meetupURL!=='undefined') ? meetupURL :
+  "https://api.meetup.com/Code-and-Coffee-Uptown-Brigade/events?photo-host=public&page=20&sig_id=192364358&sig=9902a8a46a1a468003537d96d02a15e4a0451c63";
+
+  this.getEvents = function(callback) {
+    $.ajax({
+      url: this.meetupURL,
+      dataType: 'jsonp'
+    })
+    .done(function(data) {
+            callback(data);
+    })
+    .fail(function(error) {
+      console.log("Meetup API Request Failed");
+    });
+  }
+};
+
+
+window.onload = function(){
+  $('*[data-component="meetup-card-collection"]').each(function(){
+    var componentConfiguration = {
+      "maxEvents": $(this).data("meetup-card-max-return"),
+      "id": this.id,
+      "url": $(this).data("meetup-card-url")
+    };
+
+    var meetup = new Meetup(componentConfiguration.url).getEvents(function(data) {
+      $.each(data.data, function(i, event) {
+        if (i < componentConfiguration.maxEvents) {
+          eventPresenter = EventPresenter(event);
+          createEventCard(eventPresenter);
+        }
+      })
+    });
+
+    var createEventCard = function (event) {
+      var template = $('#meetup-card').html();
+      Mustache.parse(template);   // optional, speeds up future uses
+      var rendered = Mustache.render(template, {"event": event});
+      $('#'+componentConfiguration.id).append(rendered);
+    };
+
+    var EventPresenter = function(event) {
+      var formatVenueLink = function(venue) {
+        var formattedVenue = "http://maps.google.com/?q=" + encodeURI(venue.address_1) + '+' + encodeURI(venue.city);
+        return formattedVenue
+      };
+      var formatDate = function(date) {
+        // Pretty print the event date
+        var day = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var months = [
+          "January", "February", "March", "April",
+          "May", "June", "July", "August",
+          "September", "October", "November", "December"
+        ];
+
+        return day[date.getDay()]  + ', '
+        + months[date.getMonth()] + ' '
+        + date.getDate() + ', '
+        + date.getFullYear()
+        + ' at '
+        + (date.getHours() % 12) + ':'
+        + (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes())
+        + ' '
+        + (date.getHours() < 12 ? 'AM' : 'PM');
+      };
+
+      event.venueLink = formatVenueLink(event.venue);
+      event.formattedDate = formatDate(new Date(event.time));
+      return event;
+    }
+  })
+};
+</script>
+
+<h2 class="teal">Upcoming Events</h2>
+<div id="meetup-card-collection"
+  data-component="meetup-card-collection"
+  data-meetup-card-max-return="3"
+  data-meetup-card-url="https://api.meetup.com/Code-and-Coffee-Uptown-Brigade/events?photo-host=public&page=20&sig_id=192364358&sig=9902a8a46a1a468003537d96d02a15e4a0451c63">
+</div>
+
+    </div>
+
+    <div class="col-md-5">
+      
+<a class="twitter-timeline" data-height="1250" href="https://twitter.com/codeuptown?ref_src=twsrc%5Etfw">Tweets by codeuptown</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+  <hr>
+  <footer>
+    <p>Code &amp; Coffee: Uptown Brigade</p>
+    <p>&copy; 2018 contributors</p>
+  </footer>
+</div>
+
+
+  </body>
+
+</html>
