@@ -533,6 +533,7 @@ a {
     .panel-default > .panel-heading a {
       color: white; }
   .panel-default a {
+    word-break: break-all;
     color: #BD3245; }
 
 .navbar {

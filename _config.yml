@@ -1,11 +1,11 @@
 # Site settings
-title: Code, Coffee, Uptown
-email: cac@uptown.codes
+title: Open Uptown
+email: ryan@openuptown.us
 description: ""
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://uptown.codes" # the base hostname & protocol for your site
-twitter_username: uptowncodes
-github_username:  Code-and-Coffee-Uptown-Brigade
+url: "http://openuptown.us" # the base hostname & protocol for your site
+twitter_username: open_uptown
+github_username:  Open-Uptown
 
 # Build settings
 # markdown: kramdown
